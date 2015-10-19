@@ -14,7 +14,8 @@
   (atom {:page 0
          :page-data {61 {:you     [6 3]
                          :view    [3 1]
-                         :enemies [[1 0] [11 3]]}}}))
+                         :enemies [[1 0] [11 3]]
+                         :dead?   false}}}))
 
 (def terrain
   (mapv vec ["   ######WWWWWW"
@@ -181,7 +182,7 @@
        [:h2.left [:ol
                   [1 [:li "Why talk about ClojureScript?"]]
                   [2 [:li "Programs and Functions"]]
-                  [3 [:li "Om"]]
+                  [3 [:li "Om - building a User Interface"]]
                   [4 [:li "Example App"]]]]]]])
 
 (def why-1
@@ -189,7 +190,7 @@
       [:h2.left "1. Why talk about ClojureScript?"]
       [:div.offset-by-one.eleven.columns
        [:h4.left [:ul
-                  [1 [:li "a lot of the LoB tools are built using it"]]
+                  [1 [:li "several of the LoB tools are built using it"]]
                   [2 [:li "it combines the very old " [:code "(lisp)"] "..."]]
                   [3 [:li "...with the very new:"
                       [:ul
@@ -206,7 +207,7 @@
 (def progs-n-fns-1
   [2 (progs-n-fns-title
       [1 [:div.big-margin
-          [:h3 "what " [:i "is"] " a computer program?"]]])])
+          [:h3 "What " "is" " a computer program?"]]])])
 
 (def progs-n-fns-2
   [3 (progs-n-fns-title
@@ -233,7 +234,7 @@
         [:h3 "Every lisp program is built out of expressions of the form: "
          [:code "(f a b c ...)"]]
         [:div.margin
-         [1 [:h4 [:code "(+ 2 5) -> 7"]]]
+         [1 [:h4 [:code "(+ 2 5 3) -> 10"]]]
          [2 [:h4 [:code "(* (- 12 5) (/ 10 2)) -> 35"]]]
          [3 [:h4 [:code "(filter even? [0 1 2 3 4 5]) -> [0 2 4]"]]]
          [4 [:h4 [:code "(map (fn [x] (+ x 2)) [10 6 2]) -> [12 8 4]"]]]]]])])
@@ -263,7 +264,7 @@
 (defn om-title
   [content]
   [:div
-   [:h2.left "3. Om"]
+   [:h2.left "3. Om - building a User Interface"]
    content])
 
 (def om-1
@@ -273,7 +274,7 @@
         [:ul
          [1 [:li "Based on Facebook's React framework"]]
          [2 [:li "Idea: put all the changeable data the UI needs in a single mutable " [:i "atom"] ", " [:code "app-state"]]]
-         [3 [:li "Then implement the UI as a pure function:"]]]]
+         [3 [:li "Then implement the UI render as a pure function:"]]]]
        [3 [:h3 [:code "app-state -> HTML"]]]])])
 
 (defn app-title
@@ -364,8 +365,8 @@
        (app-title
         [:div.margin
          [(if (:dead? state)
-            :div.offset-by-two.ten.columns.grey
-            :div.offset-by-two.ten.columns)
+            :div.grey
+            :div)
           (grid (world-view state))]]))])
 
 (def thank-you
@@ -408,7 +409,10 @@
   (case (.-keyCode e)
     78 (swap! app-state update-in [:page] #(min (dec (count talk)) (inc %)))
     80 (swap! app-state update-in [:page] #(max 0 (dec %)))
-    32 (swap! app-state assoc-in [:page-data 61 :dead?] false)
+    32 (swap! app-state assoc-in [:page-data 61] {:you     [6 3]
+                                                  :view    [3 1]
+                                                  :enemies [[1 0] [11 3]]
+                                                  :dead?   false})
     (case (:page @app-state)
       61 (swap! app-state update-in [:page-data 61]
                 move-you-and-update-view (keycode->direction (.-keyCode e)))
@@ -423,9 +427,13 @@
           (let [e (<! c)]
             (handle-keypress e)))))))
 
-#_(go
+;; Move the monsters.
+
+(go
   (while (= (:page @app-state) 61)
     (<! (timeout (rand-int 300)))
     (swap! app-state update-in [:page-data 61] move-enemies)))
+
+;;;;;;;;;;;;;;;;;;;
 
 (defn on-js-reload [] nil)
