@@ -48,7 +48,7 @@
   (let [[left top] view
         terrain    (reduce
                     (fn [accum enemy] (superpose accum enemy "M"))
-                    (superpose terrain you "H")
+                    (superpose terrain you "Y")
                     enemies)]
     (map #(subvec % left (+ SIZE left)) (subvec terrain top (+ SIZE top)))))
 
@@ -56,7 +56,7 @@
   [s]
   (case s
     " " [:div.square.green]
-    "H" [:div.square.green
+    "Y" [:div.square.green
          [:img.square {:src "images/stick-figure.png"}]]
     "T" [:div.square.green
          [:img.square {:src "images/tree.png"}]]
@@ -189,7 +189,7 @@
       [:h2.left "1. Why talk about ClojureScript?"]
       [:div.offset-by-one.eleven.columns
        [:h4.left [:ul
-                  [1 [:li "a lot of the LoB tools are using it"]]
+                  [1 [:li "a lot of the LoB tools are built using it"]]
                   [2 [:li "it combines the very old " [:code "(lisp)"] "..."]]
                   [3 [:li "...with the very new:"
                       [:ul
@@ -303,15 +303,15 @@
            [3 [:div.six.columns
                [:table
                 [:tbody
-                 (table-row "H")
+                 (table-row "Y")
                  [5 (table-row "#")]
                  [7 (table-row "M")]]]]]]]])])
 
 (def app-2
   [2 (app-title
        [:div.margin
-        [:h3.left "Now we can use " [:code "(map tile \"T# TH W M\")"] " to get:"]
-        [1 [:div.margin (grid ["T# TH W M"])]]])])
+        [:h3.left "Now we can use " [:code "(map tile \"T# TY W M\")"] " to get:"]
+        [1 [:div.margin (grid ["T# TY W M"])]]])])
 
 (def app-3
   [2 (app-title
@@ -323,7 +323,7 @@
                              "(def data-array [\" M #T    WWW\"\n"
                              "                 \"#### T T  WW\"\n"
                              "                 \"WWW T   T   \"\n"
-                             "                 \"WWW   H TT M\"\n"
+                             "                 \"WWW   Y TT M\"\n"
                              "                 \"WWWWW   TT  \"]"]]]]]]])])
 
 (def app-4
@@ -334,7 +334,7 @@
         (grid [" M #T    WWW"
                "#### T T  WW"
                "WWW T   T   "
-               "WWW   H TT M"
+               "WWW   Y TT M"
                "WWWWW   TT  "])]])])
 
 (def app-5
@@ -395,7 +395,6 @@
     om/IRender
     (render [_]
       (html [:div
-             [:p.left (str (:page data))]
              [:div.small-margin
               ((nth talk (:page data)) data)]]))))
 
