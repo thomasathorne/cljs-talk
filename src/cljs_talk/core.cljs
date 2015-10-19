@@ -282,7 +282,7 @@
    [:h2.left "4. Example App"]
    content])
 
-(defn table-row
+(defn tile-example
   [s]
   [:tr
    [:td [:div.square [:h4 [:code (pr-str s)]]]] [:td [:div.square]]
@@ -297,15 +297,15 @@
            [:div.six.columns
             [:table
              [:tbody
-              (table-row " ")
-              [4 (table-row "T")]
-              [6 (table-row "W")]]]]
+              (tile-example " ")
+              [4 (tile-example "T")]
+              [6 (tile-example "W")]]]]
            [3 [:div.six.columns
                [:table
                 [:tbody
-                 (table-row "Y")
-                 [5 (table-row "#")]
-                 [7 (table-row "M")]]]]]]]])])
+                 (tile-example "Y")
+                 [5 (tile-example "#")]
+                 [7 (tile-example "M")]]]]]]]])])
 
 (def app-2
   [2 (app-title
@@ -389,6 +389,8 @@
              app-7
              thank-you))
 
+;;;;;;;;;;;;;;;;;;;
+
 (defn screen
   [data owner]
   (reify
@@ -402,6 +404,8 @@
  screen
  app-state
  {:target (. js/document (getElementById "app"))})
+
+;;;;;;;;;;;;;;;;;;;;;
 
 (defn handle-keypress
   [e]
