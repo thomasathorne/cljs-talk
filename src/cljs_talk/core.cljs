@@ -79,8 +79,7 @@
 
 (defn passable?
   [[x y]]
-  (and (or (= " " (get-in terrain [y x]))
-           (= "W" (get-in terrain [y x])))
+  (and (= " " (get-in terrain [y x]))
        (<= 0 x (get terrain-size 0))
        (<= 0 y (get terrain-size 1))))
 
@@ -430,7 +429,7 @@
 ;; Move the monsters.
 
 (go
-  (while (= (:page @app-state) 61)
+  (while true
     (<! (timeout (rand-int 300)))
     (swap! app-state update-in [:page-data 61] move-enemies)))
 
