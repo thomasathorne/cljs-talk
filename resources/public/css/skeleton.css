@@ -145,7 +145,7 @@ h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
 @media (min-width: 550px) {
   h1 { font-size: 10.0rem; }
   h2 { font-size: 5.2rem; }
-  h3 { font-size: 4.6rem; }
+  h3 { font-size: 4.0rem; }
   h4 { font-size: 3.0rem; }
   h5 { font-size: 2.4rem; }
   h6 { font-size: 1.5rem; }
@@ -324,9 +324,8 @@ pre > code {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 th,
 td {
-  padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #E1E1E1; }
+}
 th:first-child,
 td:first-child {
   padding-left: 0; }

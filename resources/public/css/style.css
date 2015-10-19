@@ -18,14 +18,17 @@ h1, h2, h3, h4, h5, h6, p, code {
     margin: 20rem;
 }
 
+.grey {
+    opacity: 0.3;
+}
+
 .grid {
     border-collapse: collapse;
 }
 
 .square {
     height: 50px;
-    width: 60px;
-    float: right;
+    width: 50px;
 }
 
 .blue {
