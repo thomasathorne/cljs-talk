@@ -425,7 +425,7 @@
 
 #_(go
   (while (= (:page @app-state) 61)
-    (<! (timeout (rand-int 500)))
+    (<! (timeout (rand-int 300)))
     (swap! app-state update-in [:page-data 61] move-enemies)))
 
 (defn on-js-reload [] nil)
